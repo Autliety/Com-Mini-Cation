@@ -1,0 +1,30 @@
+### System ###
+.DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### Java module ###
+target/
+.gradle
+/build/
+
+### Taro module ###
+node_modules/
+.temp/
+.rn_temp/
+dist/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
