@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "cmcapp",
 	"description": "Com-Mini-Cation Wechat-app Project",
-	"appid": "touristappid",
+	"appid": "wxe6410cffab0a475f",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
