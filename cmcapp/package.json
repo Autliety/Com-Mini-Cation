@@ -36,7 +36,7 @@
     "@types/webpack-env": "^1.13.6",
     "@tarojs/plugin-babel": "1.2.4",
     "@tarojs/plugin-csso": "1.2.4",
-    "@tarojs/plugin-less": "1.2.4",
+    "@tarojs/plugin-sass": "1.2.4",
     "@tarojs/plugin-uglifyjs": "1.2.4",
     "@tarojs/webpack-runner": "1.2.4",
     "babel-plugin-transform-class-properties": "^6.24.1",

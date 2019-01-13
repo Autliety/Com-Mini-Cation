@@ -1,6 +1,6 @@
 const config = {
   projectName: 'cmcapp',
-  date: '2019-1-10',
+  date: '2019-1-13',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,
