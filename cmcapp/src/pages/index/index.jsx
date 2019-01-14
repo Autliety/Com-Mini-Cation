@@ -30,17 +30,18 @@ export default class Index extends Taro.Component {
       });
       let option = {
         url: 'http://localhost:8080/hello',
-        method: 'POST',
+        method: 'GET',
         data: {name: res.userInfo.nickName}
       };
       Taro.request(option)
       .then(res => {
+        console.log(res.statusCode);
         this.setState({
           number: res.data.number
         });
       })
       .catch(err => {
-        console.log('newErr', err);
+        console.log('netErr', err);
       })
     })
     .catch(err => {
