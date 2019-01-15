@@ -58,7 +58,7 @@ export default class Index extends Taro.Component {
   render() {
     return (
       <View className='at-article'>
-        <AtIcon value='user' color='green' size={30}/>
+        <AtIcon value='user' color='green' size={30} />
         <Text className='at-article__h1'>Hello, {this.state.nickName}: </Text>
         {this.state.id === undefined ?
           <AtButton type='primary' circle openType='getUserInfo'
