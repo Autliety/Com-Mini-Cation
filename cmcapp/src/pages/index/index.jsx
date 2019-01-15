@@ -1,9 +1,11 @@
 import Taro from '@tarojs/taro'
-import {View, Text, Button} from '@tarojs/components'
-import {AtButton} from 'taro-ui'
+import {View, Text} from '@tarojs/components'
+import {AtButton, AtIcon} from 'taro-ui'
 import './index.scss'
 
 const APP = Taro.getApp();
+
+const URL = 'http://localhost:8080';
 
 export default class Index extends Taro.Component {
 
@@ -14,30 +16,34 @@ export default class Index extends Taro.Component {
     };
     this.state = {
       nickName: 'Guest',
-      number: undefined
+      id: undefined,
+      freq: undefined
     };
   }
 
   componentWillMount() {
 
+  }
+
+  handleClick() {
     Taro.getUserInfo()
-    .then(res => {
+    .then(result => {
       APP.globalData = {
-        userInfo: res.userInfo
+        userInfo: result.userInfo
       };
       this.setState({
-        nickName: res.userInfo.nickName
+        nickName: result.userInfo.nickName
       });
       let option = {
-        url: 'http://localhost:8080/hello',
+        url: URL + '/hello',
         method: 'GET',
-        data: {name: res.userInfo.nickName}
+        data: {name: result.userInfo.nickName}
       };
       Taro.request(option)
-      .then(res => {
-        console.log(res.statusCode);
+      .then(response => {
         this.setState({
-          number: res.data.number
+          id: response.data.id,
+          freq: response.data.freq
         });
       })
       .catch(err => {
@@ -51,18 +57,22 @@ export default class Index extends Taro.Component {
 
   render() {
     return (
-      <View className={'at-article'}>
-        <View className={'at-article__h1'}>Hello, {' ' + this.state.nickName}: </View>
-        {this.state.number === undefined ?
-          <AtButton type={'primary'} circle={true} openType={'getUserInfo'}
-                    onGetUserInfo={this.componentWillMount}>Login</AtButton>
+      <View className='at-article'>
+        <AtIcon value='user' color='green' size={30}/>
+        <Text className='at-article__h1'>Hello, {this.state.nickName}: </Text>
+        {this.state.id === undefined ?
+          <AtButton type='primary' circle openType='getUserInfo'
+                    onClick={this.handleClick}>
+            Login
+          </AtButton>
           :
-          <View className={'at-article__p'}>You are the{' ' + this.state.number}th user to
-            login</View>
+          <View className='at-article__h3'>
+            <View>Your user ID: {this.state.id}</View>
+            <View>Your logging frequency: {this.state.freq}</View>
+          </View>
         }
       </View>
     )
   }
 }
-
 
