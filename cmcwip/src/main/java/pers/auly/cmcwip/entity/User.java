@@ -13,7 +13,7 @@ public class User implements AbstractEntity {
     
     private Integer id;
     private String name;
-    private Integer freq;
+    @Builder.Default private Integer freq = 1;
     
     public User addFreq() {
         this.freq++;

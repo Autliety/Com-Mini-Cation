@@ -20,8 +20,7 @@ public class UserService {
     public User getUserByName(String name) {
         User user = userMapper.selectName(name);
         if (user == null) {
-            // freq.DEFAULT_VALUE: 1
-            user = User.builder().name(name).freq(1).build();
+            user = User.builder().name(name).build();
             userMapper.insertEntity(user);
         } else {
             userMapper.updateFreq(user.addFreq());

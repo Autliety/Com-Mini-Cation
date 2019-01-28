@@ -4,4 +4,4 @@ server:
 spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite::resource:db/hello.db
+    url: jdbc:sqlite:db/hello.db

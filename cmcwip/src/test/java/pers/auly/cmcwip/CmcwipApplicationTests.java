@@ -1,13 +1,14 @@
 package pers.auly.cmcwip;
 
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class CmcwipApplicationTests extends AbstractTests {
-    
-    @Test
-    public void contextLoads() {
-        System.out.println("Did nothing");
-    }
-    
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    // Test classes
+})
+
+public class CmcwipApplicationTests {
+    // Automatically run all the tests in SuiteClasses
 }
 
