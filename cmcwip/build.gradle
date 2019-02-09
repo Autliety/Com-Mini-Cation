@@ -11,6 +11,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -24,22 +25,13 @@ repositories {
 
 dependencies {
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.54'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.23.1'
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    compileOnly 'org.projectlombok:lombok'
+
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
-task copyDb {
-    copy {
-        from 'src/main/resources/db'
-        into 'db'
-    }
-    copy {
-        from 'src/main/resources/db'
-        into 'build/libs/db'
-    }
-}

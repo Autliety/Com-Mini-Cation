@@ -1,11 +1,6 @@
 ### Gradle ###
 .gradle
-!gradle/wrapper/gradle-wrapper.jar
 
 ### Output ###
 /build/
 /out/
-
-### TestDB ###
-/db/
-
