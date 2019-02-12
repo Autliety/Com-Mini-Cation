@@ -1,17 +1,13 @@
 {
-  "miniprogramRoot": "dist/",
+  "miniprogramRoot": "./dist",
   "projectname": "cmcapp",
-  "description": "Com-Mini-Cation Wechat-app Project",
-  "appid": "wxe6410cffab0a475f",
+  "description": "Com-mini-cation wechat-mini-application Typescript Repository",
+  "appid": "touristappid",
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "es6": false,
     "postcss": false,
-    "minified": false,
-    "newFeature": true,
-    "nodeModules": false,
-    "autoAudits": false
+    "minified": false
   },
-  "compileType": "miniprogram",
-  "condition": {}
+  "compileType": "miniprogram"
 }
