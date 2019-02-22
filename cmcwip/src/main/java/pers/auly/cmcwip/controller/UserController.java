@@ -21,7 +21,7 @@ public class UserController {
     
     @GetMapping(PATH)
     public JSONObject getUserInfo(@RequestParam("name") String name) {
-        JSONObject data = new JSONObject();
+        var data = new JSONObject();
         return data;
     }
     
