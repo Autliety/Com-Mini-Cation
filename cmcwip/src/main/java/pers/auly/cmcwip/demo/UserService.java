@@ -15,7 +15,12 @@ class UserService {
         this.userRepository = userRepository;
     }
     
-    User login(String username) {
-        return userRepository.findByName(username).orElse(new User());
+    User login(String signature, String username) {
+        User user =  userRepository.findBySignature(signature)
+            .map(u -> u.setNickName(username))
+            .map(u -> u.setFreq(u.getFreq() + 1))
+            .orElse(User.builder().signature(signature).nickName(username).build());
+        userRepository.save(user);
+        return user;
     }
 }

@@ -1,13 +1,17 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "cmcapp",
-  "description": "Com-mini-cation wechat-mini-application Typescript Repository",
-  "appid": "touristappid",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram"
+	"miniprogramRoot": "dist/",
+	"projectname": "cmcapp",
+	"description": "Com-mini-cation wechat-mini-application Typescript Repository",
+	"appid": "wxe6410cffab0a475f",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"condition": {}
 }
