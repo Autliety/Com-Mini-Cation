@@ -9,4 +9,5 @@ public class CmcwipApplication {
     public static void main(String[] args) {
         SpringApplication.run(CmcwipApplication.class, args);
     }
+    
 }
