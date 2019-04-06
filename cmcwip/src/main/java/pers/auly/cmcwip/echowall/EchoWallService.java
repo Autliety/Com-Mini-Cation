@@ -3,7 +3,7 @@ package pers.auly.cmcwip.echowall;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EchoWallService {
+class EchoWallService {
     
     boolean createQuestion(String theme, String context) {
     

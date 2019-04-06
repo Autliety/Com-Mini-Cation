@@ -25,6 +25,10 @@ export default class Login extends Taro.Component<Props> {
     })
   }
 
+  componentWillUnmount (): void {
+    console.log('unmount')
+  }
+
   handleGetUserInfo = () => {
     this.setState({loading: true})
     cmcLogin().then(() => {

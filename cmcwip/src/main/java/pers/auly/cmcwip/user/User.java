@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.demo;
+package pers.auly.cmcwip.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

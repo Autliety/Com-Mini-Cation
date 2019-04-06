@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.demo;
+package pers.auly.cmcwip.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

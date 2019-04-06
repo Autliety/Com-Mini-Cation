@@ -10,7 +10,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @Builder
-public class Question {
+class Question {
     
     @Id
     @GeneratedValue

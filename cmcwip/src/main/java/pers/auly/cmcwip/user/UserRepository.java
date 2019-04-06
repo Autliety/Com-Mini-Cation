@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.demo;
+package pers.auly.cmcwip.user;
 
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;

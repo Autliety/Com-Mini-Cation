@@ -1,11 +1,10 @@
-package pers.auly.cmcwip.demo;
+package pers.auly.cmcwip.user;
 
 import com.alibaba.fastjson.JSONObject;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,12 +20,13 @@ public class UserController {
     private static final String PATH = "/login";
     
     @PostMapping(PATH)
-    public JSONObject getUserInfo(@RequestBody Map<String, String> paylaod) {
-        var data = new JSONObject(2);
-        User userData = userService.login(paylaod.get("sig"), paylaod.get("name"));
-        data.put("name", userData.getRealName());
-        data.put("freq", userData.getFreq());
-        return data;
+    public JSONObject userLogin(@RequestBody Map<String, ?> payload) {
+        var data = new JSONObject();
+        var code = (String) payload.get("code");
+        var sig = (String) payload.get("sig");
+        var raw = (String) payload.get("raw");
+        System.out.println(code + sig + raw);
+        return null;
     }
     
 }

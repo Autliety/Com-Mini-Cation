@@ -7,6 +7,6 @@ interface AnswerRepository extends CrudRepository<Answer, Long> {
     
     Stream<Answer> findByUserIdOrderByDate(Long id);
     
-    Stream<Answer> findByQuestionIdOOrderByDate(Long id);
+    Stream<Answer> findByQuestionIdOrderByDate(Long id);
     
 }
