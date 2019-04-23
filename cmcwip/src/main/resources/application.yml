@@ -10,3 +10,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+custom:
+  wechat:
+    appid: wxe6410cffab0a475f
+    secret: b8ea061728e4e6dc8fd8de671b1167b5
+    apihost: api.weixin.qq.com

@@ -15,23 +15,26 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'pers.auly'
-version = '0.0.1'
-sourceCompatibility = '1.11'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.54'
+
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+
     compileOnly 'org.projectlombok:lombok'
 
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 }
 

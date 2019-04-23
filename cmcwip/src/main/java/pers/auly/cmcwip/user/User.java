@@ -1,47 +1,23 @@
 package pers.auly.cmcwip.user;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 class User {
     
     @Id
-    private String signature;
+    @GeneratedValue
+    private Integer id;
     
-    private String nickName;
+    private String realName;
     
-    @Builder.Default
-    private String realName = "学生";
+    private String schoolId;
     
-    @Builder.Default
-    private Integer freq = 1;
+    // wechat user specific open-id
+    private String openId;
     
-    public User setSignature(String signature) {
-        this.signature = signature;
-        return this;
-    }
-    
-    public User setNickName(String nickName) {
-        this.nickName = nickName;
-        return this;
-    }
-    
-    public User setRealName(String realName) {
-        this.realName = realName;
-        return this;
-    }
-    
-    public User setFreq(Integer freq) {
-        this.freq = freq;
-        return this;
-    }
 }

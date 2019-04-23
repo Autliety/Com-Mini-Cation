@@ -33,7 +33,7 @@ export default class Login extends Taro.Component<Props> {
     this.setState({loading: true})
     cmcLogin().then(() => {
       this.props.onLogin()
-      this.setState({open: false, loading: false})
+      this.setState({open: false})
     })
   }
 

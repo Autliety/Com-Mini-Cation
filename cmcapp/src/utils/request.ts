@@ -11,7 +11,7 @@ export default async function cmcRequest (method: Method, path: string, payload:
     path = '/' + path
   }
   const option = {
-    url: 'https://' + ADDR + path,
+    url: 'http://' + ADDR + path,
     method,
     data: payload
   }
