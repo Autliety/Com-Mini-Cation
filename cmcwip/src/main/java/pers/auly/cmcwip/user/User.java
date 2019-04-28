@@ -17,7 +17,6 @@ class User {
     
     private String schoolId;
     
-    // wechat user specific open-id
-    private String openId;
+    private String openId; // wechat user specific open-id
     
 }

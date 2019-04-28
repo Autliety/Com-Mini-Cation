@@ -29,7 +29,6 @@ public class UserController {
     
         String openId = wxLoginVo.getOpenId();
     
-        ObjectNode response = JsonUtil.objectNode();
         
         return null;
     }
