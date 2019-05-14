@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.user;
+package pers.auly.cmcwip.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

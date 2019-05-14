@@ -1,27 +1,25 @@
 package pers.auly.cmcwip.exceptions;
 
+import org.apache.logging.log4j.util.Strings;
+
 public class CmcWebException extends RuntimeException {
     
-    private final String reason;
+    private String reason = Strings.EMPTY;
     
-    public CmcWebException(String reason) {
-        super(reason);
-        this.reason = reason;
+    CmcWebException() {
     }
     
-    public CmcWebException(String message, String reason) {
+    public CmcWebException(String message) {
         super(message);
-        this.reason = reason;
     }
     
-    public CmcWebException(Throwable cause, String reason) {
-        super(cause);
-        this.reason = reason;
-    }
-    
-    public CmcWebException(String message, Throwable cause, String reason) {
+    public CmcWebException(String message, Throwable cause) {
         super(message, cause);
+    }
+    
+    public CmcWebException setReason(String reason) {
         this.reason = reason;
+        return this;
     }
     
     public String getReason() {

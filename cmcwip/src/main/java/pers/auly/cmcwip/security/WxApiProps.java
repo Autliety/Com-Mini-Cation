@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.properties;
+package pers.auly.cmcwip.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("custom.wechat")
 @EnableConfigurationProperties(WxApiProps.class)
 @Data
-public class WxApiProps {
+class WxApiProps {
     
     private String apiHost;
     

@@ -1,13 +1,19 @@
 package pers.auly.cmcwip.user;
 
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import lombok.Data;
 
 @Entity
 @Data
-class User {
+public class User {
     
     @Id
     @GeneratedValue
@@ -17,6 +23,13 @@ class User {
     
     private String schoolId;
     
+    private String phoneNum;
+    
+    @Column(unique = true)
     private String openId; // wechat user specific open-id
+   
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<? extends UserRole> roles;
     
 }
