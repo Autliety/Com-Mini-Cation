@@ -9,7 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import pers.auly.cmcwip.user.User;
+import pers.auly.cmcwip.security.user.User;
 
 @Entity(name = "token")
 @Getter(AccessLevel.PACKAGE)

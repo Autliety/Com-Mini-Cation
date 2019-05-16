@@ -1,10 +1,10 @@
-package pers.auly.cmcwip.exceptions;
+package pers.auly.cmcwip.utils.exceptions;
 
-import org.apache.logging.log4j.util.Strings;
+import java.util.Optional;
 
 public class CmcWebException extends RuntimeException {
     
-    private String reason = Strings.EMPTY;
+    private String reason = null;
     
     CmcWebException() {
     }
@@ -17,12 +17,13 @@ public class CmcWebException extends RuntimeException {
         super(message, cause);
     }
     
-    public CmcWebException setReason(String reason) {
+    public CmcWebException reason(String reason) {
         this.reason = reason;
         return this;
     }
     
     public String getReason() {
-        return reason;
+        return Optional.of(reason)
+            .orElse("Unknown server error. ");
     }
 }

@@ -7,9 +7,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import pers.auly.cmcwip.exceptions.CmcWebException;
-import pers.auly.cmcwip.exceptions.UserNotFoundException;
-import pers.auly.cmcwip.user.UserRepository;
+import pers.auly.cmcwip.utils.exceptions.ForbiddenException;
+import pers.auly.cmcwip.utils.exceptions.UnauthorizedException;
+import pers.auly.cmcwip.security.user.UserRepository;
 import pers.auly.cmcwip.utils.RequestUtils;
 
 @Slf4j
@@ -27,6 +27,23 @@ class SecurityService {
         this.wxApiProps = wxApiProps;
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
+    }
+    
+    WmaLoginToken userLogin(String code, String sign, String rawData) {
+        return tokenRepository.findById(code)
+            .orElseGet(() -> {
+                WxLoginVo wxLoginVo = wechatLogin(code);
+                if (!signCheck(sign, rawData, wxLoginVo.getSessionKey())) {
+                    throw new ForbiddenException();
+                }
+                return userRepository.findByOpenId(wxLoginVo.getOpenId())
+                    .map(user -> {
+                        tokenRepository.deleteByUser(user);
+                        return tokenRepository.save(new WmaLoginToken(code, user));
+                    })
+                    .orElseThrow(UnauthorizedException::new);
+            });
+        
     }
     
     /**
@@ -61,20 +78,4 @@ class SecurityService {
         return sign.equals(DigestUtils.sha1Hex(rawData + key));
     }
     
-    WmaLoginToken userLogin(String code, String sign, String rawData) {
-        return tokenRepository.findById(code)
-            .orElseGet(() -> {
-                WxLoginVo wxLoginVo = wechatLogin(code);
-                if (!signCheck(sign, rawData, wxLoginVo.getSessionKey())) {
-                    throw new CmcWebException("Illegal sign ");
-                }
-                return userRepository.findByOpenId(wxLoginVo.getOpenId())
-                    .map(user -> {
-                        tokenRepository.deleteByUser(user);
-                        return tokenRepository.save(new WmaLoginToken(code, user));
-                    })
-                    .orElseThrow(UserNotFoundException::new);
-            });
-        
-    }
 }

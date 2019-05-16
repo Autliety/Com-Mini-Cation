@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.user;
+package pers.auly.cmcwip.security.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

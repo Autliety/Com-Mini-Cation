@@ -1,7 +1,6 @@
 package pers.auly.cmcwip.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,6 @@ public class SecurityController {
     
     @PostMapping("login")
     public JsonNode userLogin(@RequestBody ObjectNode payload) {
-        
         String code = payload.get("code").asText();
         String sign = payload.get("sign").asText();
         String rawData = payload.get("raw-data").asText();
@@ -29,7 +27,7 @@ public class SecurityController {
         WmaLoginToken token = securityService.userLogin(code, sign, rawData);
     
         ObjectNode response = JsonUtils.objectNode();
-        response.set("userInfo", JsonUtils.obj2Tree(token.getUser()));
+        response.set("userInfo", JsonUtils.obj2Node(token.getUser()));
         response.put("token", token.getToken());
     
         return response;

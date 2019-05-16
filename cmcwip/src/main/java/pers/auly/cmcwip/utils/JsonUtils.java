@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import java.util.List;
+import java.util.Set;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-public class JsonUtils {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class JsonUtils {
     
     private static final ObjectMapper mapper;
     private static final TypeFactory typeFactory = TypeFactory.defaultInstance();
@@ -26,12 +29,12 @@ public class JsonUtils {
         return mapper.createArrayNode();
     }
     
-    public static JsonNode obj2Tree(Object obj) {
+    public static <T extends JsonNode> T obj2Node(Object obj) {
         return mapper.valueToTree(obj);
     }
     
-    public static <T> List<T> tree2List(JsonNode tree, Class<T> clazz) {
-        return mapper.convertValue(tree, typeFactory.constructCollectionType(List.class, clazz));
+    public static <T> Set<T> tree2Set(JsonNode tree, Class<T> clazz) {
+        return mapper.convertValue(tree, typeFactory.constructCollectionType(Set.class, clazz));
     }
     
 }

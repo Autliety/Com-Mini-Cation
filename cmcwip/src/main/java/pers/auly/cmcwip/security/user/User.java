@@ -1,4 +1,4 @@
-package pers.auly.cmcwip.user;
+package pers.auly.cmcwip.security.user;
 
 import java.util.Set;
 import javax.persistence.Column;
@@ -29,7 +29,7 @@ public class User {
     private String openId; // wechat user specific open-id
    
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Set<? extends UserRole> roles;
     
 }
