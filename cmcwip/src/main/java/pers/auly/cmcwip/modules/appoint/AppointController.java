@@ -49,7 +49,7 @@ public class AppointController {
         final Date date;
         final AppointTime time;
         try {
-            date = new SimpleDateFormat("yyyy-mm-dd").parse(payload.get("date").asText());
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(payload.get("date").asText());
             time = Enum.valueOf(AppointTime.class, payload.get("time").asText());
         } catch (ParseException | IllegalArgumentException e) {
             throw new BadRequestException();

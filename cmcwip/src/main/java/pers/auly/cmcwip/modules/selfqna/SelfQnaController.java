@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,16 +24,23 @@ public class SelfQnaController {
     
     @GetMapping
     public JsonNode search(@RequestParam(name = "search", required = false) String search) {
-        Collection<Document> documents = selfQnaService.search(search.split(" "));
+        Collection<Document> documents;
+        if (search == null) {
+            documents = selfQnaService.getAll();
+        } else {
+            documents = selfQnaService.search(search.split(" "));
+        }
         return JsonUtils.objectNode()
             .putPOJO("results", documents);
     }
     
-    @GetMapping("/d")
-    public ResponseEntity<Resource> download(@RequestParam(name = "id") int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Resource> download(@PathVariable("id") int id) {
         Resource response = selfQnaService.getDocumentResource(id);
+        String fileName = selfQnaService.getDocumentFileName(id);
         return ResponseEntity.ok()
-            .contentType(MediaType.valueOf("application/msword"))
+            .header("Content-Disposition", "attachment;filename="+fileName)
+            .contentType(MediaType.valueOf("application/octet-stream"))
             .body(response);
     }
     

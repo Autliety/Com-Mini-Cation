@@ -1,12 +1,16 @@
 package pers.auly.cmcwip.security;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import pers.auly.cmcwip.security.user.User;
@@ -21,6 +25,10 @@ class WmaLoginToken implements Authentication {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
+    @CreationTimestamp
+    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
+    private Date updateTime;
     
     @SuppressWarnings("unused")
     private WmaLoginToken() {

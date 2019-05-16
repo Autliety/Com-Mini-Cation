@@ -36,6 +36,7 @@ class SecurityService {
                 if (!signCheck(sign, rawData, wxLoginVo.getSessionKey())) {
                     throw new ForbiddenException();
                 }
+                wxLoginVo.setOpenId("qwerty");
                 return userRepository.findByOpenId(wxLoginVo.getOpenId())
                     .map(user -> {
                         tokenRepository.deleteByUser(user);

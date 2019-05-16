@@ -1,6 +1,5 @@
 package pers.auly.cmcwip.modules.selfqna;
 
-import java.nio.file.Path;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +14,9 @@ class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    private String title;
+    private String fileName;
     
-    private Path Path;
+    private String title;
     
     private String summary;
     

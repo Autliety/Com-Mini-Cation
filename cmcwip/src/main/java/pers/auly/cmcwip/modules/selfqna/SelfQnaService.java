@@ -2,6 +2,9 @@ package pers.auly.cmcwip.modules.selfqna;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +24,12 @@ class SelfQnaService {
         this.documentRepository = documentRepository;
     }
     
+    Collection<Document> getAll() {
+        Collection<Document> c = new ArrayList<>();
+        documentRepository.findAll().forEach(c::add);
+        return c;
+    }
+    
     Collection<Document> search(String[] keyWords) {
         Map<Integer, Document> resultMap = new LinkedHashMap<>();
         for (String keyWord : keyWords) {
@@ -33,15 +42,22 @@ class SelfQnaService {
     
     Resource getDocumentResource(int id) {
         return documentRepository.findById(id)
-            .map(Document::getPath)
-            .map((path) -> {
+            .map(Document::getFileName)
+            .map((name) -> {
                 try {
+                    Path path = Paths.get("testdocs").resolve(name);
                     return new ByteArrayResource(Files.readAllBytes(path));
                 } catch (IOException e) {
                     String msg = "Document file reading error. ";
                     throw new CmcWebException(msg, e).reason(msg);
                 }
             })
+            .orElseThrow(NotFoundException::new);
+    }
+    
+    String getDocumentFileName(int id) {
+        return documentRepository.findById(id)
+            .map(Document::getFileName)
             .orElseThrow(NotFoundException::new);
     }
     

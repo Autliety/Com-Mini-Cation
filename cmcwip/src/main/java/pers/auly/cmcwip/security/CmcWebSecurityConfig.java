@@ -30,7 +30,7 @@ public class CmcWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .addFilterAfter(wmaLoginFilter(), SecurityContextPersistenceFilter.class)
             .authorizeRequests()
-                .antMatchers("/secure/**").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .anyRequest().authenticated()
             .and()
             .csrf().disable();

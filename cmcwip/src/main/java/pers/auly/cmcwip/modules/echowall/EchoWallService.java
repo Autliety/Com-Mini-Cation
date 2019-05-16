@@ -36,12 +36,13 @@ class EchoWallService {
     }
     
     void createQuestion(String title, String context, Set<String> tags) {
-        Question question = Question.builder().title(title).context(context).tags(tags).build();
+        Question question = Question.builder().user(SessionUtils.current()).title(title)
+            .context(context).tags(tags).build();
         questionRepository.save(question);
     }
     
     void answerQuestion(Question q, String context) {
-        Answer answer = Answer.builder().question(q).context(context).build();
+        Answer answer = Answer.builder().user(SessionUtils.current()).question(q).context(context).build();
         answerRepository.save(answer);
     }
     

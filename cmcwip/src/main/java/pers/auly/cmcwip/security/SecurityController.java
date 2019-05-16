@@ -2,11 +2,14 @@ package pers.auly.cmcwip.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.auly.cmcwip.security.user.User;
 import pers.auly.cmcwip.utils.JsonUtils;
+import pers.auly.cmcwip.utils.SessionUtils;
 
 @RestController
 @RequestMapping("/user")
@@ -18,7 +21,7 @@ public class SecurityController {
         this.securityService = securityService;
     }
     
-    @PostMapping("login")
+    @PostMapping("/login")
     public JsonNode userLogin(@RequestBody ObjectNode payload) {
         String code = payload.get("code").asText();
         String sign = payload.get("sign").asText();
@@ -33,9 +36,14 @@ public class SecurityController {
         return response;
     }
     
-    @PostMapping("register")
+    @PostMapping("/register")
     public JsonNode userRegister(@RequestBody ObjectNode payload) {
         throw new UnsupportedOperationException();
     }
     
+    @GetMapping
+    public JsonNode getUserInfo() {
+        return JsonUtils.objectNode()
+            .putPOJO("user", SessionUtils.current());
+    }
 }
