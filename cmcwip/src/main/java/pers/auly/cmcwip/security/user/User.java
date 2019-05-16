@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ import lombok.Data;
 public class User {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     private String realName;
@@ -26,7 +27,8 @@ public class User {
     private String phoneNum;
     
     @Column(unique = true)
-    private String openId; // wechat user specific open-id
+    private String openId;
+    // wechat user specific open-id
    
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.ORDINAL)
