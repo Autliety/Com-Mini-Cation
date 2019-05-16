@@ -6,12 +6,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Data;
 import pers.auly.cmcwip.security.user.User;
 
 @Entity
 @Data
-public class Appoint {
+@Builder
+class Appoint {
     
     private Integer id;
     

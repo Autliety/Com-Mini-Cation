@@ -17,7 +17,7 @@ public class SelfQnaController {
     
     private final SelfQnaService selfQnaService;
     
-    public SelfQnaController(SelfQnaService selfQnaService) {
+    private SelfQnaController(SelfQnaService selfQnaService) {
         this.selfQnaService = selfQnaService;
     }
     

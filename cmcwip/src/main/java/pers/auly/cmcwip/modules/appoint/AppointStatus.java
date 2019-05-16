@@ -1,5 +1,5 @@
 package pers.auly.cmcwip.modules.appoint;
 
-public enum AppointStatus {
+enum AppointStatus {
     NEW, CONFIRMED, DENIED
 }

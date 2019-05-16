@@ -20,7 +20,7 @@ public class EchoWallController {
     
     private final EchoWallService echoWallService;
     
-    public EchoWallController(EchoWallService echoWallService) {
+    private EchoWallController(EchoWallService echoWallService) {
         this.echoWallService = echoWallService;
     }
     

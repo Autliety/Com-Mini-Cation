@@ -1,5 +1,5 @@
 package pers.auly.cmcwip.modules.appoint;
 
-public enum AppointTime {
+enum AppointTime {
     AM, PM
 }

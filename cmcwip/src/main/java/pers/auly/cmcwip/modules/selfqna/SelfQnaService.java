@@ -17,7 +17,7 @@ class SelfQnaService {
     
     private final DocumentRepository documentRepository;
     
-    public SelfQnaService(DocumentRepository documentRepository) {
+    private SelfQnaService(DocumentRepository documentRepository) {
         this.documentRepository = documentRepository;
     }
     
@@ -25,7 +25,7 @@ class SelfQnaService {
         Map<Integer, Document> resultMap = new LinkedHashMap<>();
         for (String keyWord : keyWords) {
             List<Document> query = documentRepository
-                .findAllByTitleContainingOrSummaryContaining(keyWord, keyWord);
+                .findAllByTitleContainsOrSummaryContains(keyWord, keyWord);
             query.forEach(d -> resultMap.put(d.getId(), d));
         }
         return resultMap.values();
@@ -38,7 +38,8 @@ class SelfQnaService {
                 try {
                     return new ByteArrayResource(Files.readAllBytes(path));
                 } catch (IOException e) {
-                    throw new CmcWebException("Document file reading error. ", e);
+                    String msg = "Document file reading error. ";
+                    throw new CmcWebException(msg, e).reason(msg);
                 }
             })
             .orElseThrow(NotFoundException::new);

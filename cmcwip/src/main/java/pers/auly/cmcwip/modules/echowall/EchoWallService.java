@@ -12,7 +12,7 @@ class EchoWallService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     
-    public EchoWallService(QuestionRepository questionRepository,
+    private EchoWallService(QuestionRepository questionRepository,
         AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;

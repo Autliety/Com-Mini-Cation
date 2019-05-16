@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import pers.auly.cmcwip.utils.exceptions.ForbiddenException;
-import pers.auly.cmcwip.utils.exceptions.UnauthorizedException;
+import pers.auly.cmcwip.utils.exceptions.NoSuchUserException;
 import pers.auly.cmcwip.security.user.UserRepository;
 import pers.auly.cmcwip.utils.RequestUtils;
 
@@ -41,7 +41,7 @@ class SecurityService {
                         tokenRepository.deleteByUser(user);
                         return tokenRepository.save(new WmaLoginToken(code, user));
                     })
-                    .orElseThrow(UnauthorizedException::new);
+                    .orElseThrow(NoSuchUserException::new);
             });
         
     }

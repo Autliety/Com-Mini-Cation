@@ -1,5 +1,6 @@
 package pers.auly.cmcwip.security.user;
 
+import java.util.Collection;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
@@ -8,5 +9,7 @@ import org.springframework.stereotype.Component;
 public interface UserRepository extends CrudRepository<User, Integer> {
     
     Optional<User> findByOpenId(String openId);
+    
+    Collection<User> findAllByRolesContains(UserRole role);
     
 }
