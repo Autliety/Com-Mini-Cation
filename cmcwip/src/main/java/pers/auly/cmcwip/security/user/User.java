@@ -1,5 +1,6 @@
 package pers.auly.cmcwip.security.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -27,6 +28,7 @@ public class User {
     private String phoneNum;
     
     @Column(unique = true)
+    @JsonIgnore
     private String openId;
     // wechat user specific open-id
    

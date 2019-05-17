@@ -8,6 +8,8 @@ import pers.auly.cmcwip.security.user.User;
 import pers.auly.cmcwip.security.user.UserRepository;
 import pers.auly.cmcwip.security.user.UserRole;
 import pers.auly.cmcwip.utils.SessionUtils;
+import pers.auly.cmcwip.utils.exceptions.BadRequestException;
+import pers.auly.cmcwip.utils.exceptions.ForbiddenException;
 import pers.auly.cmcwip.utils.exceptions.NoSuchUserException;
 import pers.auly.cmcwip.utils.exceptions.NotFoundException;
 
@@ -38,6 +40,9 @@ class AppointService {
     void createAppoint(String summary, int distId, Date date, AppointTime time) {
         User distUser = userRepository.findById(distId)
             .orElseThrow(NoSuchUserException::new);
+        if (!distUser.getRoles().contains(UserRole.TEACHER)) {
+            throw new BadRequestException();
+        }
         Appoint appoint = Appoint.builder()
             .user(SessionUtils.current())
             .appointDate(date)
@@ -50,12 +55,12 @@ class AppointService {
     }
     
     void respondAppoint(int aid, AppointStatus status) {
-        appointRepository.findById(aid)
-            .ifPresentOrElse(appoint -> {
-                appoint.setStatus(status);
-                appointRepository.save(appoint);
-            },
-                NotFoundException::new
-            );
+        Appoint appoint = appointRepository.findById(aid)
+            .orElseThrow(NotFoundException::new);
+        if (!appoint.getDistUser().getId().equals(SessionUtils.current().getId())) {
+            throw new ForbiddenException();
+        }
+        appoint.setStatus(status);
+        appointRepository.save(appoint);
     }
 }

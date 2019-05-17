@@ -28,7 +28,7 @@ class WmaLoginToken implements Authentication {
     
     @CreationTimestamp
     @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    private Date creationTime;
     
     @SuppressWarnings("unused")
     private WmaLoginToken() {

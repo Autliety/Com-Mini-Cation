@@ -43,14 +43,14 @@ public class AppointController {
     }
     
     @PutMapping
-    public void createAppoint(ObjectNode payload) {
+    public void createAppoint(@RequestBody ObjectNode payload) {
         final String summary = payload.get("summary").asText().trim();
         final int distId = payload.get("tid").asInt();
         final Date date;
         final AppointTime time;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(payload.get("date").asText());
-            time = Enum.valueOf(AppointTime.class, payload.get("time").asText());
+            time = Enum.valueOf(AppointTime.class, payload.get("time").asText().toUpperCase());
         } catch (ParseException | IllegalArgumentException e) {
             throw new BadRequestException();
         }
@@ -61,7 +61,7 @@ public class AppointController {
     public void respondAppoint(@PathVariable("id") int id, @RequestBody ObjectNode payload) {
         AppointStatus status;
         try {
-            status = Enum.valueOf(AppointStatus.class, payload.get("status").asText());
+            status = Enum.valueOf(AppointStatus.class, payload.get("status").asText().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BadRequestException();
         }
