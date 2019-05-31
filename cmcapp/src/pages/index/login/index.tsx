@@ -2,38 +2,32 @@ import Taro from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtActivityIndicator } from 'taro-ui'
 
-import './Login.scss'
+import './index.scss'
 
-import cmcLogin from './actions'
+import { cmcLogin } from './actions'
 
-type Props = { onLogin: () => void }
+type Props = { onLoginSuccess: () => void }
 
 export default class Login extends Taro.Component<Props> {
 
   state = {
-    open: true,
     loading: true
-  }
-
-  componentDidMount () {
-    Taro.getSetting().then(s => {
-      if (s.authSetting['scope.userInfo']) {
-        this.handleGetUserInfo()
-      } else {
-        this.setState({open: true, loading: false})
-      }
-    })
-  }
-
-  componentWillUnmount (): void {
-    console.log('unmount')
   }
 
   handleGetUserInfo = () => {
     this.setState({loading: true})
     cmcLogin().then(() => {
-      this.props.onLogin()
-      this.setState({open: false})
+      this.props.onLoginSuccess()
+    })
+  }
+
+  componentWillMount () {
+    Taro.getSetting().then(s => {
+      if (s.authSetting['scope.userInfo']) {
+        this.handleGetUserInfo()
+      } else {
+        this.setState({loading: false})
+      }
     })
   }
 
@@ -41,14 +35,13 @@ export default class Login extends Taro.Component<Props> {
     return (
       <View className='Login'>
         <AtModal
-          isOpened={this.state.open}
+          isOpened
           closeOnClickOverlay={false}
         >
-          <AtModalHeader>Welcome</AtModalHeader>
+          <AtModalHeader>欢迎使用通小信</AtModalHeader>
           <AtModalContent>
-            Welcome to Com-Mini-Cation!\n\r
-            If you are new here,\n\r
-            Click the button below to enter:
+            <View>欢迎使用杭州电子科技大学通信工程学院师生信息化平台。{'\n'}</View>
+            <View>首次登录请授权使用微信个人信息</View>
           </AtModalContent>
           <AtModalAction>
             {this.state.loading ?

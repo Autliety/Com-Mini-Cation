@@ -25,12 +25,12 @@ public class SecurityController {
     public JsonNode userLogin(@RequestBody ObjectNode payload) {
         String code = payload.get("code").asText();
         String sign = payload.get("sign").asText();
-        String rawData = payload.get("raw-data").asText();
+        String rawData = payload.get("rawData").asText();
         
         WmaLoginToken token = securityService.userLogin(code, sign, rawData);
     
         ObjectNode response = JsonUtils.objectNode();
-        response.set("userInfo", JsonUtils.obj2Node(token.getUser()));
+        response.set("user", JsonUtils.obj2Node(token.getUser()));
         response.put("token", token.getToken());
     
         return response;

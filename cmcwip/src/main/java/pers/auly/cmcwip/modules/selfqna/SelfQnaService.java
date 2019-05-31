@@ -45,7 +45,7 @@ class SelfQnaService {
             .map(Document::getFileName)
             .map((name) -> {
                 try {
-                    Path path = Paths.get("testdocs").resolve(name);
+                    Path path = Paths.get("testdocs").resolve(name); // TODO fix temp path
                     return new ByteArrayResource(Files.readAllBytes(path));
                 } catch (IOException e) {
                     String msg = "Document file reading error. ";

@@ -1,17 +1,17 @@
 {
 	"miniprogramRoot": "dist/",
 	"projectname": "cmcapp",
-	"description": "Com-mini-cation wechat-mini-application Typescript Repository",
+	"description": "Com-Mini-Cation WeChat applet.",
 	"appid": "wxe6410cffab0a475f",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false,
-		"newFeature": true,
-		"nodeModules": false,
-		"autoAudits": false
+		"minified": false
 	},
 	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"libVersion": "2.7.0",
 	"condition": {}
 }

@@ -33,10 +33,10 @@ class SecurityService {
         return tokenRepository.findById(code)
             .orElseGet(() -> {
                 WxLoginVo wxLoginVo = wechatLogin(code);
+                log.info("open_id: " + wxLoginVo.getOpenId());
                 if (!signCheck(sign, rawData, wxLoginVo.getSessionKey())) {
                     throw new ForbiddenException();
                 }
-                wxLoginVo.setOpenId("qwerty");
                 return userRepository.findByOpenId(wxLoginVo.getOpenId())
                     .map(user -> {
                         tokenRepository.deleteByUser(user);

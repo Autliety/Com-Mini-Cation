@@ -1,39 +1,74 @@
-import Taro, { Config } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 
 import './index.scss'
 
-import NaviTab from './navitab/NaviTab'
-import Login from './login/Login'
-import IndexContent from './contents/IndexContent'
+import TabBar from './tabbar'
+import getProps from '../../utils/properties'
+import Home from './contents/home'
+import SelfQna from './contents/selfqna'
+import EchoWall from './contents/echowall'
+import Appoint from './contents/appoint'
+import Login from './login'
+import { initData } from './actions'
 
 export default class Index extends Taro.Component {
 
+  config: Taro.Config = {
+    navigationBarTitleText: '通小信'
+  }
+
   state = {
-    onPage: 0,
+    inLogin: true,
+    onTab: -1
   }
 
-  config: Config = {
-    navigationBarTitleText: '通小信WIP'
+  handleLoginSuccess = () => {
+    initData().then(() => {
+      this.setState({
+        inLogin: false,
+        onTab: 0
+      })
+    })
   }
 
-  handleLogin = () => {
-  }
-
-  handlePageChange = (index: number) => {
-    this.setState({
-      onPage: index
+  handleTabChange = (value) => {
+    const title = value === 0 ? getProps('appName') : getProps('tabList')[value].title
+    Taro.setNavigationBarTitle({title})
+    .then(() => {
+      this.setState({
+        onTab: value
+      })
     })
   }
 
   render () {
+    let content
+    switch (this.state.onTab) {
+      case 0: {
+        content = <Home />
+        break
+      }
+      case 1: {
+        content = <SelfQna />
+        break
+      }
+      case 2: {
+        content = <EchoWall />
+        break
+      }
+      case 3: {
+        content = <Appoint />
+        break
+      }
+    }
+
     return (
-      <View className='index'>
-        <Login onLogin={this.handleLogin} />
-        <IndexContent active={this.state.onPage} />
-        <NaviTab onPageChange={this.handlePageChange} />
+      <View className='home'>
+        {this.state.inLogin && <Login onLoginSuccess={this.handleLoginSuccess} />}
+        {content}
+        <TabBar onTabChange={this.handleTabChange} />
       </View>
     )
   }
 }
-

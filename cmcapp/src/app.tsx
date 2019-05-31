@@ -1,38 +1,35 @@
 import '@tarojs/async-await'
-import Taro, { Component, Config } from '@tarojs/taro'
+import 'taro-ui/dist/style/index.scss'
+
+import Taro from '@tarojs/taro'
 import Index from './pages/index'
 
 import './app.scss'
 
-// Uncomment this to enable React Devtools in h5 env:
+// Uncomment this to enable React-Devtools in h5 env:
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
 
-class App extends Component {
+class App extends Taro.Component {
 
-    //Declare the type of config as Taro.Config
-    config: Config = {
+
+  config: Taro.Config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
     ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#71A0F8',
+      // navigationBarBackgroundColor: '#FFF',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
+      navigationBarTextStyle: 'black',
+
+      backgroundTextStyle: 'light'
+    },
+    debug: true // TODO disable debug
   }
 
-  componentDidMount () {}
-
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
-
-  // DO NOT modify this render
+  // DON'T modify this render!
   render () {
     return (
       <Index />

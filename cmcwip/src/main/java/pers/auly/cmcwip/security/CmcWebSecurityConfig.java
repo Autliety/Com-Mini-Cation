@@ -53,7 +53,7 @@ public class CmcWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter wmaLoginFilter() {
         try {
             return ((request, response, chain) -> {
-                Optional.ofNullable(((HttpServletRequest) request).getHeader("cmc-token"))
+                Optional.ofNullable(((HttpServletRequest) request).getHeader("cmcToken"))
                     .ifPresent(string -> {
                         WmaLoginToken token = new WmaLoginToken(string);
                         Authentication auth = authenticationManagerBean().authenticate(token);
