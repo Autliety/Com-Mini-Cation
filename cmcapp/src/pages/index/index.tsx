@@ -42,6 +42,15 @@ export default class Index extends Taro.Component {
     })
   }
 
+  onPullDownRefresh () {
+    initData()
+    .then(() => {
+      this.forceUpdate(() => {
+        Taro.stopPullDownRefresh()
+      })
+    })
+  }
+
   render () {
     let content
     switch (this.state.onTab) {

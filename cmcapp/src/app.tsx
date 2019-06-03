@@ -19,12 +19,14 @@ class App extends Taro.Component {
       'pages/index/index',
     ],
     window: {
-      navigationBarBackgroundColor: '#71A0F8',
+      navigationBarBackgroundColor: '#6190E8',
       // navigationBarBackgroundColor: '#FFF',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black',
+      navigationBarTextStyle: 'white',
 
-      backgroundTextStyle: 'light'
+      backgroundTextStyle: 'dark',
+
+      enablePullDownRefresh: true
     },
     debug: true // TODO disable debug
   }

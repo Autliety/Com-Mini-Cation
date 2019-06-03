@@ -4,7 +4,7 @@ import { setData } from '../../../utils/globalData'
 
 export async function cmcLogin (): Promise<void> {
   const userData = await Taro.getUserInfo()
-  setData('wmUser', userData.userInfo)
+  setData('wxUser', userData.userInfo)
 
   let user
   try {

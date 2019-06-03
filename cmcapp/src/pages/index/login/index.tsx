@@ -45,7 +45,7 @@ export default class Login extends Taro.Component<Props> {
           </AtModalContent>
           <AtModalAction>
             {this.state.loading ?
-              <View className='indicator'>
+              <View className='indicator-container'>
                 <AtActivityIndicator mode='center' content='loading...' />
               </View>
               :

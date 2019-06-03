@@ -38,11 +38,19 @@ async function cmcRequest (method: Method, url: string, payload: object) {
 }
 
 export async function postRequest (path: string, payload: object) {
-  return await cmcRequest('POST', solveUrl(path), payload)
+  try {
+    return await cmcRequest('POST', solveUrl(path), payload)
+  } catch (e) {
+    throw e
+  }
 }
 
 export async function getRequest (path: string, params: object = {}) {
-  return await cmcRequest('GET', solveUrl(path), params)
+  try {
+    return await cmcRequest('GET', solveUrl(path), params)
+  } catch (e) {
+    throw e
+  }
 }
 
 export async function downloadRequest (path: string) {
