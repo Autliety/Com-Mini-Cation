@@ -1,5 +1,6 @@
 package pers.auly.cmcwip.security;
 
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
@@ -11,4 +12,5 @@ interface TokenRepository extends CrudRepository<WmaLoginToken, String> {
     @Transactional
     void deleteByUser(User user);
     
+    Optional<WmaLoginToken> findByToken(String token);
 }

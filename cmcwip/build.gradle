@@ -18,12 +18,15 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'com-mini-cation-server'
-    version =  '0.1.0'
+    version =  '0.0.9'
 }
 
 repositories {
     mavenCentral()
 }
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 dependencies {
 

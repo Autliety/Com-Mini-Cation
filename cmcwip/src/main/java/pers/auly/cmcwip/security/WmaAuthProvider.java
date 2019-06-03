@@ -19,7 +19,7 @@ class WmaAuthProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication)
         throws AuthenticationException {
         WmaLoginToken wmaLoginToken = (WmaLoginToken) authentication;
-        return tokenRepository.findById(wmaLoginToken.getToken())
+        return tokenRepository.findByToken(wmaLoginToken.getToken())
             .orElseThrow(() -> new BadCredentialsException("incorrect session token! "));
     }
     

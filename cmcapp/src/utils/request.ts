@@ -6,13 +6,15 @@ const solveUrl = (path: string): string => {
   if (path[0] !== '/') {
     path = '/' + path
   }
-  return 'http://192.168.1.13:8080' + path
+  return 'http://47.100.102.2:1226' + path
 }
 
 async function cmcRequest (method: Method, url: string, payload: object) {
 
   const token = Taro.getStorageSync('token')
-  const header = token ? {cmcToken: token} : undefined
+  const header = token ? {
+    Authorization: token
+  } : undefined
 
   const option = {
     url,

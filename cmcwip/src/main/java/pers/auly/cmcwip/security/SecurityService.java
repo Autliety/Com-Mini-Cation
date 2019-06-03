@@ -30,7 +30,7 @@ class SecurityService {
     }
     
     WmaLoginToken userLogin(String code, String sign, String rawData) {
-        return tokenRepository.findById(code)
+        return tokenRepository.findByToken(code)
             .orElseGet(() -> {
                 WxLoginVo wxLoginVo = wechatLogin(code);
                 log.info("open_id: " + wxLoginVo.getOpenId());
