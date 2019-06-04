@@ -58,14 +58,7 @@ export default class Index extends Taro.Component<any, State> {
         data
       })
     })
-    .finally(() => {
-      Taro.stopPullDownRefresh()
-        Taro.showToast({
-          icon: 'none',
-          title: 'test'
-        })
-
-    })
+    Taro.stopPullDownRefresh()
   }
 
   render () {
@@ -82,7 +75,7 @@ export default class Index extends Taro.Component<any, State> {
         content = <Home
           ist={isTeacher}
           data={cmcUser}
-          docNum={docList? docList.length : 0}
+          docNum={docList ? docList.length : 0}
         />
         break
       }
