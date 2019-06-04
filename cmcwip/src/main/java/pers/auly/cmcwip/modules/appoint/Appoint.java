@@ -31,7 +31,7 @@ class Appoint {
     @JoinColumn(name = "user_id")
     private User user;
     
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy/M/d", timezone="GMT+8")
     private Date appointDate;
     
     @Enumerated(EnumType.ORDINAL)

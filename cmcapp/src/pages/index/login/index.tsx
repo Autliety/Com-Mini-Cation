@@ -11,13 +11,16 @@ type Props = { onLoginSuccess: () => void }
 export default class Login extends Taro.Component<Props> {
 
   state = {
-    loading: true
+    loading: true,
   }
 
   handleGetUserInfo = () => {
     this.setState({loading: true})
     cmcLogin().then(() => {
       this.props.onLoginSuccess()
+    })
+    .catch(() => {
+        Taro.redirectTo({url: '/pages/signup/index'})
     })
   }
 

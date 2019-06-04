@@ -13,13 +13,19 @@ export async function cmcLogin (): Promise<void> {
     user = response.user
 
   } catch (e) {
+    Taro.removeStorageSync('token')
     const loginData = await Taro.login()
-    const response = await postRequest('/user/login',
-      {
-        code: loginData.code,
-        sign: userData.signature,
-        rawData: userData.rawData
-      })
+    let response
+    try {
+      response = await postRequest('/user/login',
+        {
+          code: loginData.code,
+          sign: userData.signature,
+          rawData: userData.rawData
+        })
+    } catch (loginError) {
+      throw loginError
+    }
     Taro.setStorageSync('token', response.token)
     user = response.user
   }

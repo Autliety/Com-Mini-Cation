@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import pers.auly.cmcwip.security.user.User;
+import pers.auly.cmcwip.security.user.UserRole;
 import pers.auly.cmcwip.utils.exceptions.ForbiddenException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,6 +21,10 @@ public final class SessionUtils {
         } catch (Exception e) {
             throw new ForbiddenException();
         }
+    }
+    
+    public static boolean isTeacher() {
+      return current().getRoles().contains(UserRole.TEACHER);
     }
     
 }

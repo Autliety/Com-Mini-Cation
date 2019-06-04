@@ -1,25 +1,33 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 // @ts-ignore
-import { AtDivider, AtCard, AtTag, AtFab, AtIcon } from 'taro-ui'
-import { isTeacher } from '../../../../utils/debuging'
-import { getData } from '../../../../utils/globalData'
+import { AtDivider, AtCard, AtTag, AtFab, AtIcon, AtFloatLayout } from 'taro-ui'
 import './index.scss'
 
-export default class EchoWall extends Taro.Component {
+type Props = {
+  ist: boolean,
+  data: Question[]
+}
 
-  state = {}
+export default class EchoWall extends Taro.Component<Props> {
+
+  divider = Taro.getStorageSync('isTeacher')
 
   handleClickCard = (id: number) => {
-    console.log(id)
+    Taro.navigateTo({url: '/pages/echowall/view?id=' + id})
   }
 
   handleClickAdd = () => {
+    Taro.navigateTo({url: '/pages/echowall/new'})
+  }
 
+  componentDidShow () {
+    Taro.startPullDownRefresh()
   }
 
   render () {
-    const ewList = getData('ewList')
+    const {ist, data} = this.props
+    const divider = ist ? '学生留言' : '我的留言'
 
     return (
       <View className='echo'>
@@ -30,10 +38,10 @@ export default class EchoWall extends Taro.Component {
           </AtFab>
         </View>
 
-        <AtDivider content={isTeacher() ? '学生留言' : '我的留言'} />
+        <AtDivider content={divider} />
 
         <View className='ew-content'>
-          {ewList.map((q, index) => {
+          {data.map((q, index) => {
             return <View key={index} className='card-list-container'>
               <AtCard
                 className='question'
@@ -43,7 +51,7 @@ export default class EchoWall extends Taro.Component {
               >
                 <View style='flex-direction:row;'>
                   {q.tags.map((t, i) => {
-                    return <AtTag
+                    return t !== '' && <AtTag
                       key={i}
                       customStyle='margin-right:5px;'
                       size='small'
@@ -58,6 +66,8 @@ export default class EchoWall extends Taro.Component {
             </View>
           })}
         </View>
+
+
       </View>
     )
   }

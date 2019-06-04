@@ -36,8 +36,7 @@ public class AppointController {
     
     @GetMapping
     public JsonNode getMyAppoints() {
-        boolean isTeacher = SessionUtils.current().getRoles().contains(UserRole.TEACHER);
-        List<Appoint> appoints = appointService.getMyAppoints(isTeacher);
+        List<Appoint> appoints = appointService.getMyAppoints(SessionUtils.isTeacher());
         return JsonUtils.objectNode()
             .putPOJO("appoints", appoints);
     }
@@ -49,7 +48,7 @@ public class AppointController {
         final Date date;
         final AppointTime time;
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(payload.get("date").asText());
+            date = new SimpleDateFormat("yyyy/M/d").parse(payload.get("date").asText());
             time = Enum.valueOf(AppointTime.class, payload.get("time").asText().toUpperCase());
         } catch (ParseException | IllegalArgumentException e) {
             throw new BadRequestException();

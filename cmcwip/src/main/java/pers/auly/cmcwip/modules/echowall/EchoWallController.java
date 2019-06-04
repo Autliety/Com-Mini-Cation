@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pers.auly.cmcwip.utils.JsonUtils;
+import pers.auly.cmcwip.utils.SessionUtils;
 
 @RestController
 @RequestMapping("/echowall")
@@ -25,12 +25,12 @@ public class EchoWallController {
     }
     
     @GetMapping
-    public JsonNode getQuestionList(@RequestParam(name = "my", defaultValue = "false") boolean my) {
+    public JsonNode getQuestionList() {
         final List<Question> questions;
-        if (my) {
-            questions = echoWallService.getMyQuestions();
-        } else {
+        if (SessionUtils.isTeacher()) {
             questions = echoWallService.getAllQuestions();
+        } else {
+            questions = echoWallService.getMyQuestions();
         }
         return JsonUtils.objectNode()
             .putPOJO("questions", questions);

@@ -17,6 +17,10 @@ class App extends Taro.Component {
   config: Taro.Config = {
     pages: [
       'pages/index/index',
+      'pages/signup/index',
+      'pages/echowall/view',
+      'pages/echowall/new',
+      'pages/appoint/new'
     ],
     window: {
       navigationBarBackgroundColor: '#6190E8',
@@ -27,8 +31,7 @@ class App extends Taro.Component {
       backgroundTextStyle: 'dark',
 
       enablePullDownRefresh: true
-    },
-    debug: true // TODO disable debug
+    }
   }
 
   // DON'T modify this render!

@@ -30,7 +30,7 @@ class WmaLoginToken implements Authentication {
     private User user;
     
     @CreationTimestamp
-    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date creationTime;
     
     @SuppressWarnings("unused")

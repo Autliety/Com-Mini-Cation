@@ -1,14 +1,24 @@
 import { getRequest } from '../../utils/request'
-import { setData } from '../../utils/globalData'
-import { isTeacher } from '../../utils/debuging'
 
-export async function initData (): Promise<void> {
+export async function initData (): Promise<GlobalData> {
   const userRes = await getRequest('/user')
-  setData('cmcUser', userRes.user)
+  const cmcUser = userRes.user
 
-  const qnaRes = await getRequest('/selfqna')
-  setData('qnaList', qnaRes.results)
+  const docRes = await getRequest('/selfqna')
+  const docList = docRes.results
 
-  const ewRes = await getRequest('/echowall', isTeacher() ? undefined : {my: true})
-  setData('ewList', ewRes.questions)
+  const ewRes = await getRequest('/echowall')
+  const ewList = ewRes.questions
+
+  const aptRes = await getRequest('/appoint')
+  const aptList = aptRes.appoints
+
+  return {
+    cmcUser,
+    docList,
+    ewList,
+    aptList
+  }
 }
+
+

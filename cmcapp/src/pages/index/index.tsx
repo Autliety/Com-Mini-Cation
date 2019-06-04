@@ -12,21 +12,30 @@ import Appoint from './contents/appoint'
 import Login from './login'
 import { initData } from './actions'
 
-export default class Index extends Taro.Component {
+type State = {
+  onTab: number,
+  data: GlobalData
+}
+
+export default class Index extends Taro.Component<any, State> {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      onTab: -1,
+      data: {} as GlobalData
+    }
+  }
+
 
   config: Taro.Config = {
     navigationBarTitleText: '通小信'
   }
 
-  state = {
-    inLogin: true,
-    onTab: -1
-  }
-
   handleLoginSuccess = () => {
-    initData().then(() => {
+    Taro.startPullDownRefresh()
+    .then(() => {
       this.setState({
-        inLogin: false,
         onTab: 0
       })
     })
@@ -44,37 +53,55 @@ export default class Index extends Taro.Component {
 
   onPullDownRefresh () {
     initData()
-    .then(() => {
-      this.forceUpdate(() => {
-        Taro.stopPullDownRefresh()
+    .then((data) => {
+      this.setState({
+        data
       })
+    })
+    .finally(() => {
+      Taro.stopPullDownRefresh()
+        Taro.showToast({
+          icon: 'none',
+          title: 'test'
+        })
+
     })
   }
 
   render () {
+    const {cmcUser, docList, aptList, ewList} = this.state.data
+    const isTeacher = cmcUser ? cmcUser.roles.indexOf('TEACHER') >= 0 : false
+
     let content
     switch (this.state.onTab) {
+      case -1: {
+        content = <Login onLoginSuccess={this.handleLoginSuccess} />
+        break
+      }
       case 0: {
-        content = <Home />
+        content = <Home
+          ist={isTeacher}
+          data={cmcUser}
+          docNum={docList? docList.length : 0}
+        />
         break
       }
       case 1: {
-        content = <SelfQna />
+        content = <SelfQna data={docList} />
         break
       }
       case 2: {
-        content = <EchoWall />
+        content = <EchoWall ist={isTeacher} data={ewList} />
         break
       }
       case 3: {
-        content = <Appoint />
+        content = <Appoint ist={isTeacher} data={aptList} />
         break
       }
     }
 
     return (
       <View className='home'>
-        {this.state.inLogin && <Login onLoginSuccess={this.handleLoginSuccess} />}
         {content}
         <TabBar onTabChange={this.handleTabChange} />
       </View>

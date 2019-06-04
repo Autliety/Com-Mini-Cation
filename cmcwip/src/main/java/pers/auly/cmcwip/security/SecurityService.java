@@ -2,11 +2,14 @@ package pers.auly.cmcwip.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import pers.auly.cmcwip.security.user.User;
+import pers.auly.cmcwip.security.user.UserRole;
 import pers.auly.cmcwip.utils.exceptions.ForbiddenException;
 import pers.auly.cmcwip.utils.exceptions.NoSuchUserException;
 import pers.auly.cmcwip.security.user.UserRepository;
@@ -45,6 +48,13 @@ class SecurityService {
                     .orElseThrow(NoSuchUserException::new);
             });
         
+    }
+    
+    void userRegist(User newUser, String code, boolean isTeacher) {
+        UserRole role = isTeacher ? UserRole.TEACHER : UserRole.STUDENT;
+        newUser.setRoles(Collections.singleton(role));
+        newUser.setOpenId(wechatLogin(code).getOpenId());
+        userRepository.save(newUser);
     }
     
     /**

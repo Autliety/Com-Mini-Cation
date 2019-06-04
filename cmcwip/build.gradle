@@ -18,7 +18,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'com-mini-cation-server'
-    version =  '0.0.9'
+    version =  '1.0.0'
 }
 
 repositories {
@@ -31,7 +31,6 @@ targetCompatibility = 1.11
 dependencies {
 
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
-
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
 
     compileOnly 'org.projectlombok:lombok'

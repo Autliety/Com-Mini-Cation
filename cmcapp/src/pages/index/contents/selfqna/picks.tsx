@@ -7,25 +7,19 @@ import { sleep } from '../../../../utils/debuging'
 import './picks.scss'
 
 type Props = {
-  picks: {
-    id: number,
-    title: string,
-    summary: string,
-    fileName: string
-  },
+  inPick: Document,
   onExit: () => void
 }
 
 export default class Picks extends Taro.Component<Props> {
 
   state = {
-    open: false,
     loading: false
   }
 
   handleClose = () => {
     this.setState({
-      open: false
+      loading: false
     })
     this.props.onExit()
   }
@@ -34,35 +28,24 @@ export default class Picks extends Taro.Component<Props> {
     this.setState({
       loading: true
     })
-    download(this.props.picks.id)
+    download(this.props.inPick.id)
     .then(() => {
       sleep(2000).then(() => {
-        this.setState({
-          open: false,
-          loading: false
-        })
+        this.handleClose()
       })
     })
   }
 
-  componentWillReceiveProps (nextProps: Readonly<Props>) {
-    if (nextProps.picks.id !== -1) {
-      this.setState({
-        open: true
-      })
-    }
-  }
-
   render () {
-    const {picks} = this.props
+    const {inPick} = this.props
     return (
       <View className='picks'>
         <AtFloatLayout
-          isOpened={this.state.open}
-          title={picks.title}
+          isOpened={inPick.id >= 0}
+          title={inPick.title}
           onClose={this.handleClose}
         >
-          {picks.summary.split(' ').map((s, index) => {
+          {inPick.summary.split(' ').map((s, index) => {
             return <View key={index}>{s}</View>
           })}
           <View className='dl-button'>
@@ -72,7 +55,7 @@ export default class Picks extends Taro.Component<Props> {
               loading={this.state.loading}
               onClick={this.handleClick}
             >
-              下载并查看 {picks.fileName}
+              下载并查看 {inPick.fileName}
             </AtButton>
           </View>
         </AtFloatLayout>

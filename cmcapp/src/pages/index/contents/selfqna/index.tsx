@@ -1,35 +1,41 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtSearchBar, AtDivider, AtList, AtListItem } from 'taro-ui'
-import { getData } from '../../../../utils/globalData'
+import { AtDivider, AtList, AtListItem, AtSearchBar } from 'taro-ui'
 // import './index.scss'
 import Picks from './picks'
 import { search } from './actions'
 
-const initPicking = {
-  id: -1,
-  title: '',
-  summary: '',
-  fileName: ''
+type Props = {
+  data: Document[]
 }
 
-export default class SelfQna extends Taro.Component {
+type State = {
+  value: string,
+  isSearch: boolean,
+  docs: Document[],
+  inPick: Document
+}
 
-  state = {
-    value: '',
-    searching: false,
-    searchList: [],
+const PICK = {id: -1} as Document
 
-    picks: initPicking
+export default class SelfQna extends Taro.Component<Props, State> {
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      value: '',
+      isSearch: false,
+      docs: [],
+      inPick: PICK
+    }
   }
 
   handleTextChange = (value) => {
     this.setState({
       value,
-      searching: value !== '',
-      searchList: [],
-      picks: initPicking
+      isSearch: value !== '',
+      docs: [],
+      inPick: PICK
     })
   }
 
@@ -44,7 +50,7 @@ export default class SelfQna extends Taro.Component {
         })
       } else {
         this.setState({
-          searchList
+          docs: searchList
         })
       }
     })
@@ -52,19 +58,20 @@ export default class SelfQna extends Taro.Component {
 
   handleClickList = (value) => {
     this.setState({
-      picks: value
+      inPick: value
     })
   }
 
   handlePickExit = () => {
     this.setState({
-      picks: initPicking
+      inPick: PICK
     })
   }
 
   render () {
-    const {value, searching, searchList, picks} = this.state
-    const qnaList = searching ? searchList : getData('qnaList')
+    const {value, isSearch, docs, inPick} = this.state
+
+    const docList = isSearch ? docs : this.props.data
 
     return (
       <View className='selfqna'>
@@ -76,12 +83,12 @@ export default class SelfQna extends Taro.Component {
           />
         </View>
 
-        {qnaList.length !== 0 &&
-        <AtDivider content={searching ? '搜索结果' : '最近更新'} />
+        {docList.length !== 0 &&
+        <AtDivider content={isSearch ? '搜索结果' : '最近更新'} />
         }
 
         <AtList>
-          {qnaList.map((d, index) => {
+          {docList.map((d, index) => {
             return <AtListItem
               key={index}
               title={d.title}
@@ -93,7 +100,7 @@ export default class SelfQna extends Taro.Component {
         </AtList>
 
         <Picks
-          picks={picks}
+          inPick={inPick}
           onExit={this.handlePickExit}
         />
 
