@@ -6,7 +6,7 @@ const solveUrl = (path: string): string => {
   if (path[0] !== '/') {
     path = '/' + path
   }
-  const ipAddr = '47.100.102.2'
+  const ipAddr = 'localhost' // TODO put server ip addr here
   return 'http://' + ipAddr + ':1226' + path
 }
 
